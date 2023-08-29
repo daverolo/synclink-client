@@ -14,4 +14,9 @@ class API:
 
             return response.json()
         except Exception as exc:
-            logger.error(f"ERROR: {exc}")
+            str_exc = str(exc).strip()
+            if str_exc != "":
+                logger.debug(f"{str_exc}")
+            else:
+                logger.debug(f"Unknown exception on {self.apiUrl + url_path}")
+

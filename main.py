@@ -25,8 +25,5 @@ async def startup_event():
 
 if __name__ == "__main__":
 
-    docs_addr = config.addr if config.addr != "0.0.0.0" else "127.0.0.1"
-    docs_port = config.port
-
     uvicorn.run("main:app", host=config.addr,
                 port=config.port, reload=True, log_config=UVICORN_LOGGING_CONFIG)

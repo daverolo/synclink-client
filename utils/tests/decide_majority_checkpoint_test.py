@@ -16,7 +16,7 @@ def test_one_node():
         finalized=Justified(
             epoch="136077", root="0x3e825e6c18d217fd27f0fbef3fa6e0b15047bb062471cbe89944772b74876d8e"))
 
-    syncpoint = decide_majority_checkpoint(checkpoints=[finality])
+    syncpoint = decide_majority_checkpoint(checkpoints=[finality], num_total_nodes=1)
 
     assert syncpoint == finality
 
@@ -47,6 +47,6 @@ def test_three_node():
             epoch="136078", root="0x3e825e6c18d217fd27f0fbef3fa6e0b15047bb062471cbe89944772b74876d9e"))
 
     syncpoint = decide_majority_checkpoint(
-        checkpoints=[finality_0, finality_1, finality_2])
+        checkpoints=[finality_0, finality_1, finality_2], num_total_nodes=3)
 
     assert syncpoint == finality_0 == finality_1 != finality_2

@@ -53,9 +53,23 @@ class Config():
             m = re.search(r'(.*)(_\d+)$', k)
             if m is not None:
                 k=m.group(1)
-            argv.append(f"--{k[5:].lower()}")
-            if v != "":
-                argv.append(v)
+            argkey=f"--{k[5:].lower()}"
+            argval=v
+            if argval != "":
+                if argval in argv:
+                    idxval = argv.index(argval)
+                    idxkey = idxval - 1
+                    if 0 <= idxkey < len(argv) and argv[idxkey] != argkey:
+                        argv.append(argkey)
+                        argv.append(argval)
+                    else:
+                        # print(f"DEBUG: {argkey} {argval} is already in list")
+                        continue
+                else:
+                    argv.append(argkey)
+                    argv.append(argval)
+            else:
+                argv.append(argkey)
 
     @classmethod
     def _setup_schema(cls,lala="",lolo=""):

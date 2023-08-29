@@ -26,3 +26,11 @@ class validate:
         #     if not validators.url(i):
         #         raise ValueError(f"'nodes' address must be a valid url, got: {i}")
         return nodes
+
+    @staticmethod
+    def quorum_percent(cls, quorum_percent: int) -> int:
+        if quorum_percent < 0:
+            raise ValueError(f"'quorum_percent' must not lower 0, got: {quorum_percent}")
+        if quorum_percent > 100:
+            raise ValueError(f"'quorum_percent' must not higher 100, got: {quorum_percent}")
+        return quorum_percent

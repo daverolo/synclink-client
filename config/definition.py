@@ -21,6 +21,10 @@ class Schema:
     @validator("nodes")
     def check_nodes(cls, nodes: List[str]) -> List[str]:
         return validate.nodes(cls,nodes)
+    quorum_percent: int = 66
+    @validator("quorum_percent")
+    def check_quorum_percent(cls, quorum_percent: int) -> int:
+        return validate.quorum_percent(cls,quorum_percent)
     config: str = "config.yaml"
 
 cli_args = {
@@ -29,14 +33,14 @@ cli_args = {
         'type': str,
         'dest' : 'addr',
         'default' : '0.0.0.0',
-        'help' : 'the ip address or domain of your synclink server',
+        'help' : 'the ip address or domain of your synclink client api',
     },
     'port': {
         'args': ["-p", "--port"],
         'type': int,
         'dest' : 'port',
         'default' : 9000,
-        'help' : 'the port of your synclink erver',
+        'help' : 'the port of your synclink client api',
     },
     'nodes': {
         'args': ["-n", "--nodes", "--node"],
@@ -45,6 +49,13 @@ cli_args = {
         'dest' : 'nodes',
         'default' : ["http://localhost:8000"],
         'help' : 'the http addresses of your synclink server nodes',
+    },
+    'quorum_percent': {
+        'args': ["-q", "--quorum_percent", "--quorum"],
+        'type': int,
+        'dest' : 'quorum_percent',
+        'default' : 66,
+        'help' : 'the quorum in percent needed to accept a syncpoint',
     },
     'config': {
         'args': ["-c", "--config"],
